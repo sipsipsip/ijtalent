@@ -82,5 +82,5 @@ Route::get('remote-auth', function(){
 
 Route::get('remote-logout', function(){
     \Session::flush(); 
-    return Redirect::to('/');
+    session_destroy();
 });
