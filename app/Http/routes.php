@@ -80,4 +80,7 @@ Route::get('remote-auth', function(){
     return \Redirect::to('/');
 });
 
-Route::get('remote-logout', 'Auth\AuthController@logout');
+Route::get('remote-logout', function(){
+    \Auth::logout();
+    return "Manajemen Talenta logged out";
+});
