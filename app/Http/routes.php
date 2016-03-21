@@ -26,6 +26,9 @@ Route::controllers([
 
 
 Route::get('/', function(){
+    if(!Auth::check()){
+        return Redirect::to('auth/ldap');
+    }
 	return view('react');
 });
 
