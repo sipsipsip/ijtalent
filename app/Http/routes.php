@@ -80,7 +80,4 @@ Route::get('remote-auth', function(){
     return \Redirect::to('/');
 });
 
-Route::get('remote-logout', function(){
-    \Auth::logout();
-    return "pola karir logged out";
-});
+Route::get('remote-logout', 'Auth\AuthController@logout');
