@@ -81,5 +81,6 @@ Route::get('remote-auth', function(){
 });
 
 Route::get('remote-logout', function(){
-    \Session::flush(); 
+    \Session::flush();
+    return Redirect::to('http://apps-itjen.kemenkeu.go.id/development/ijaccounts/public/');
 });
