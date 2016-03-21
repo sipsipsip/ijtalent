@@ -77,7 +77,7 @@ Route::get('remote-auth', function(){
     $user = \App\User::where('kemenkeu', $identifier)->first();
     \Auth::loginUsingId($user->id, TRUE);
     Session::forget('login_key');
-    return \Redirect::to('/app');
+    return \Redirect::to('/');
 });
 
 Route::get('remote-logout', function(){
