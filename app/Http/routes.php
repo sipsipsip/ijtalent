@@ -82,5 +82,4 @@ Route::get('remote-auth', function(){
 
 Route::get('remote-logout', function(){
     \Auth::logout();
-    return "Manajemen Talenta logged out";
 });
