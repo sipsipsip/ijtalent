@@ -44690,7 +44690,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var host = 'public/api/v1';
+	var host = 'api/v1';
 
 	var groupSchema = new _normalizr.Schema('groups');
 	var sectionSchema = new _normalizr.Schema('sections');
