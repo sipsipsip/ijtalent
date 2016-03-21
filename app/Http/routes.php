@@ -60,3 +60,24 @@ Route::group(['prefix'=>'api/v1'], function(){
         Route::get('group/{id}', 'ApiController@newReportForGroup');
     });
 });
+
+
+
+// SINGLE LOGIN
+Route::get('remote-auth', function(){
+    $identifier = \Request::get('identifier');
+    $key = \Request::get('login_key');
+
+    if(Session::get('login_key') != $key || !$key){
+        return "Mau ngapain hayo?";
+    }
+    $user = \App\Model\Pegawai::where('kemenkeu', $identifier)->first();
+    \Auth::loginUsingId($user->id, TRUE);
+    Session::forget('login_key');
+    return \Redirect::to('/app');
+});
+
+Route::get('remote-logout', function(){
+    \Auth::logout();
+    return "pola karir logged out";
+});
