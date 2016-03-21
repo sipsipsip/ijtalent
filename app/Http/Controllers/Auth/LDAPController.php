@@ -10,6 +10,12 @@ class LDAPController extends Controller {
 	// Show login form LDAP
 	public function getLogin()
 	{
+        $key = rand(777,9999);
+        \Session::put('login_key', $key);
+        $return_url = 'http://apps-itjen.kemenkeu.go.id/staging/talent/public/app';
+        $remote_auth = 'http://apps-itjen.kemenkeu.go.id/staging/talent/public/remote-auth';
+	    return \Redirect::to('http://apps-itjen.kemenkeu.go.id/development/ijaccounts/public/check-auth?key='.$key.'&return_url='.$return_url.'&remote_auth='.$remote_auth);
+
 		return view('auth/ldap/login');
 	}
 
