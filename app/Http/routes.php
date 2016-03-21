@@ -82,5 +82,6 @@ Route::get('remote-auth', function(){
 
 Route::get('remote-logout', function(){
     echo "great";
+    die("STOP");
     \Auth::logout();
 });
