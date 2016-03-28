@@ -12,9 +12,9 @@ class LDAPController extends Controller {
 	{
         $key = rand(777,9999);
         \Session::put('login_key', $key);
-        $return_url = 'http://apps-itjen.kemenkeu.go.id/staging/talent/public';
-        $remote_auth = 'http://apps-itjen.kemenkeu.go.id/staging/talent/public/remote-auth';
-	    return \Redirect::to('http://apps-itjen.kemenkeu.go.id/development/ijaccounts/public/check-auth?key='.$key.'&return_url='.$return_url.'&remote_auth='.$remote_auth);
+        $return_url = 'http://localhost:3000/kantor/talent/public';
+        $remote_auth = 'http://localhost:3000/kantor/talent/public/remote-auth';
+	    return \Redirect::to('http://localhost:3000/kantor/new-account/public/check-auth?key='.$key.'&return_url='.$return_url.'&remote_auth='.$remote_auth);
 
 		return view('auth/ldap/login');
 	}

@@ -83,5 +83,6 @@ Route::get('remote-auth', function(){
 Route::get('remote-logout', function(){
     \Session::flush();
     \Auth::logout();
-    return Response::json("OK");
+    $next = \Request::get('next');
+    return Redirect::away('http://localhost:3000/kantor/new-account/public/logout?next='.$next);
 });

