@@ -32,10 +32,9 @@ Route::get('/', function(){
 	return view('react');
 });
 
-Route::get('/report', function(){
-
+Route::get('/report', ['middleware'=>'auth', function(){
     return view('report');
-});
+}]);
 
 Route::group(['middleware'=>'auth', 'prefix'=>'api/v1'], function(){
 
