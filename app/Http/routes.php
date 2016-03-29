@@ -84,5 +84,5 @@ Route::get('remote-logout', function(){
     \Session::flush();
     \Auth::logout();
     $next = \Request::get('next');
-    return Redirect::away('http://localhost:3000/kantor/new-account/public/logout?next='.$next);
+    return Redirect::away('http://apps-itjen.kemenkeu.go.id/account/public/logout?next='.$next);
 });
