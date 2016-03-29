@@ -37,7 +37,7 @@ Route::get('/report', function(){
     return view('report');
 });
 
-Route::group(['prefix'=>'api/v1'], function(){
+Route::group(['middleware'=>'auth', 'prefix'=>'api/v1'], function(){
 
 	Route::get('talent-section/{id}/talent-score', 'ApiController@getTalentScoreOfSection');
 
