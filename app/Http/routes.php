@@ -68,6 +68,7 @@ Route::group(['middleware'=>'auth', 'prefix'=>'api/v1'], function(){
 // SINGLE LOGIN
 Route::get('remote-auth', function(){
     $identifier = \Request::get('identifier');
+    $identifier = base64_decode($identifier);
     $key = \Request::get('login_key');
 
     if(Session::get('login_key') != $key || !$key){
