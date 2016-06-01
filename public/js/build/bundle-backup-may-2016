@@ -42716,15 +42716,19 @@
 	        status = (parseInt(rowValue.nkp) < 75) ? "rendah" : (parseInt(rowValue.nkp) < 90) ? "sedang" : "tinggi";
 	    },
 	    _populateHelper: function(){
+	        console.warn('populating', this.state.items)
+	        console.log(this.state.items.length, 'ITEMS')
 	        if(this.state.items.length > 1){
 	          help = KompetensiHelper(this.state.items);
 	          this.setState({helper: help});
 	          this.setState({summary: this._getSummaryData()});
 	        }
+
+
 	    },
 	    _getSummaryData: function(){
 	        var items_with_kuadran = this.state.items.map(function(item, i){
-	            item.rangeKompetensi = (parseInt(item.ku) + parseInt(item.ki)) > parseFloat(this.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(this.state.helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = (parseInt(item.ku) + parseInt(item.ki)) > parseInt(this.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseInt(this.state.helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 
 
@@ -42909,8 +42913,8 @@
 	                                    active: item.active, 
 	                                    sectionID: item.section_id, 
 
-	                                    rangeKompetensi: (parseInt(item.ku) + parseInt(item.ki)) > parseFloat(component.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(component.state.helper.alpha_low) ? "rendah" : "sedang", 
-	                                    zScore: ((parseInt(item.ku)+parseInt(item.ki)) - parseFloat(component.state.helper.average_kompetensi)) / parseFloat(component.state.helper.std_kompetensi), 
+	                                    rangeKompetensi: (parseInt(item.ku) + parseInt(item.ki)) > component.state.helper.alpha_high ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < component.state.helper.alpha_low ? "rendah" : "sedang", 
+	                                    zScore: ((parseInt(item.ku)+parseInt(item.ki)) - parseInt(component.state.helper.average_kompetensi)) / parseInt(component.state.helper.std_kompetensi), 
 	                                    rangeNKP: (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi", 
 
 	                                    onValueChange: component._rowValueChange, 
@@ -116686,8 +116690,6 @@
 	    _getKuadran: function(){
 	        kuadran = 0;
 
-	        // console.log(this.props.nama, this.props.rangeKompetensi, this.props.rangeNKP)
-
 	        if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "tinggi"){
 	            kuadran = 9
 	        } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "tinggi"){
@@ -116707,7 +116709,7 @@
 	        } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "rendah"){
 	            kuadran = 1
 	        }
-
+	  
 	    },
 
 	    _hapusTalent: function(){
@@ -116766,7 +116768,6 @@
 
 
 	module.exports = RowTalent;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RowTalent.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -120692,12 +120693,11 @@
 	    },
 	    _parseKuadran: function(score){
 	        var helper = Helper(score);
-	        console.log(helper, 'CHART HELPER')
 	        var scores_with_kuadran;
 	        var component = this;
 	        scores_with_kuadran = score.map(function(item){
 	            var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-	            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 	            item.kuadran = component._getKuadran(item);
 
@@ -120734,16 +120734,14 @@
 	    },
 	    render: function(){
 	        this._processData(this.props.data)
-	        console.log(chart_data, 'chart data')
-
 	        return React.createElement("div", null, 
+
 	                React.createElement(Bar, {data: chart_data, width: "600", redraw: true})
 	        )
 	    }
 	});
 
 	module.exports = TalentChart;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TalentChart.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -120773,7 +120771,6 @@
 	    helper.alpha_low = parseFloat(helper.average_kompetensi + (-helper.constant * helper.std_kompetensi));
 	    helper.tale_area_kompetensi = 0.15;
 
-	    console.log(helper, 'HELPER')
 	    return helper;
 	}
 
@@ -120794,11 +120791,10 @@
 	module.exports = function(){
 	    this.init = function(){
 	        this.mapKuadran(this.items);
-	        
 	    }
 
 	    this.getFromClass = function(data){
-	        data_active = _.where(data, {active: 1})
+	        data_active = _.where(data, {active: "1"})
 	        this.items = talentHelper.parseKuadran(data_active);
 	        this.init();
 	        return this;
@@ -120942,7 +120938,7 @@
 	        var component = this;
 	        scores_with_kuadran = score.map(function(item){
 	            var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-	            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 	            item.kuadran = component.getKuadran(item);
 
@@ -120978,7 +120974,6 @@
 	        return kuadran;
 	    },
 	}
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "talent.helper.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 

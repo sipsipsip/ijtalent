@@ -44690,7 +44690,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var host = 'api/v1';
+	var host = 'http://apps-itjen.kemenkeu.go.id/talent/public/api/v1';
 
 	var groupSchema = new _normalizr.Schema('groups');
 	var sectionSchema = new _normalizr.Schema('sections');
@@ -44720,7 +44720,7 @@
 	function loadInitialData(groupID) {
 	    return function (dispatch) {
 	        return (0, _fetch2.default)(host + '/report/group/' + groupID).then(function (data) {
-	            dispatch(receivedData(data));
+	            dispatch(receivedData(data));console.log(data);
 	        });
 	    };
 	}
@@ -54551,18 +54551,19 @@
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/azamuddin/Development/kantor/talent-report/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/azamuddin/Development/kantor/talent-report/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
-	"use strict";
+	'use strict';
 
 	var Helper = __webpack_require__(500);
 
 	module.exports = {
 	    parseKuadran: function parseKuadran(score) {
 	        var helper = Helper(score);
+	        console.log(helper, 'HELPERRRRR');
 	        var scores_with_kuadran;
 	        var component = this;
 	        scores_with_kuadran = score.map(function (item) {
 	            var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-	            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = parseInt(item.nkp) < 75 ? "rendah" : parseInt(item.nkp) < 90 ? "sedang" : "tinggi";
 	            item.kuadran = component.getKuadran(item);
 
@@ -54613,10 +54614,12 @@
 
 	var KompetensiHelper = function KompetensiHelper(data) {
 	    var helper = {};
-	    var items_active = _.where(data, { active: "1" });
+	    var items_active = _.where(data, { active: 1 });
 	    var items = items_active.map(function (item, i) {
 	        return parseInt(item.ku) + parseInt(item.ki);
 	    });
+
+	    console.log(data, 'DATAAAA');
 
 	    helper.max_kompetensi = _.max(items);
 	    helper.min_kompetensi = _.min(items);
@@ -54628,6 +54631,7 @@
 	    helper.alpha_low = parseFloat(helper.average_kompetensi + -helper.constant * helper.std_kompetensi);
 	    helper.tale_area_kompetensi = 0.15;
 
+	    console.log(helper, 'WHAT HELPER');
 	    return helper;
 	};
 
@@ -109509,6 +109513,7 @@
 	    }, {
 	        key: 'parseAgeRange',
 	        value: function parseAgeRange(age) {
+	            age = parseInt(age);
 	            if (age < 45) {
 	                return this.ageRanges[0];
 	            } else if (age <= 50) {
@@ -109551,19 +109556,20 @@
 
 	            // pegawai not mapped
 	            var resultsNotMapped = results.filter(function (score) {
-	                return score.active == '0';
+	                return parseInt(score.active) == 0;
 	            });
 	            this.scoresResultNotMapped = resultsNotMapped;
 
 	            // pegawai mapped
 	            var resultsMapped = results.filter(function (score) {
-	                return score.active == '1';
+	                return parseInt(score.active) == 1;
 	            });
 	            this.scoresResultMapped = resultsMapped;
 	        }
 	    }, {
 	        key: 'parseScorePerKuadran',
 	        value: function parseScorePerKuadran(scores) {
+	            console.log(scores, 'SCOREEEESS');
 	            var mapped = [];
 	            for (var i = 1; i < 10; i++) {
 	                mapped.push({
