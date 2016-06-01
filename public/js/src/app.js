@@ -21,7 +21,6 @@ var App = React.createClass({
 	render: function(){
 		return (
         <div className="container-fluid">
-				hello again to windows
           {this.props.children}
 				</div>
 			)
