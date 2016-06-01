@@ -76,6 +76,7 @@
 		render: function(){
 			return (
 	        React.createElement("div", {className: "container-fluid"}, 
+					"hello again to windows", 
 	          this.props.children
 					)
 				)
@@ -83,7 +84,7 @@
 	});
 
 	var NotFound = React.createClass({displayName: "NotFound",
-	  
+
 	  render: function(){
 	    return (
 	        React.createElement("div", null, 
@@ -104,6 +105,7 @@
 	  );
 
 	ReactDOM.render(React.createElement(Router, null, routes), document.getElementById('react-render'));
+
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\muhammad.azamuddin\\talent2\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "app.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
