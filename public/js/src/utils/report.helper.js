@@ -4,10 +4,11 @@ var talentHelper = require('./talent.helper');
 module.exports = function(){
     this.init = function(){
         this.mapKuadran(this.items);
+        
     }
 
     this.getFromClass = function(data){
-        data_active = _.where(data, {active: "1"})
+        data_active = _.where(data, {active: 1})
         this.items = talentHelper.parseKuadran(data_active);
         this.init();
         return this;

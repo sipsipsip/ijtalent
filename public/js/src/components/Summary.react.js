@@ -32,7 +32,7 @@ var Component = React.createClass({
     loadData: function(){
         $.ajax({
             method: 'GET',
-            url: 'http://localhost:3000/kantor/talent/public/api/v1/talent-group/'+ this.props.params.talent_group_id +'/summary',
+            url: 'http://apps-itjen.kemenkeu.go.id/talent/public/api/v1/talent-group/'+ this.props.params.talent_group_id +'/summary',
             cache: false,
             success: function(data){
                 this.setState({data: null});
@@ -274,4 +274,3 @@ var Component = React.createClass({
 });
 
 module.exports = Component;
-

@@ -71,11 +71,12 @@ var TalentChart = React.createClass({
     },
     _parseKuadran: function(score){
         var helper = Helper(score);
+        console.log(helper, 'CHART HELPER')
         var scores_with_kuadran;
         var component = this;
         scores_with_kuadran = score.map(function(item){
             var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
+            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
             item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
             item.kuadran = component._getKuadran(item);
 
@@ -112,8 +113,9 @@ var TalentChart = React.createClass({
     },
     render: function(){
         this._processData(this.props.data)
-        return <div>
+        console.log(chart_data, 'chart data')
 
+        return <div>
                 <Bar data={chart_data} width="600" redraw/>
         </div>
     }
