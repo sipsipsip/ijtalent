@@ -42700,8 +42700,8 @@
 	            this.setState({items: []});
 	            this.setState({items: data}, this._populateHelper);
 	        }.bind(this));
-
-
+	        
+	  
 	    },
 	    componentDidMount: function(){
 	        this.loadData();
@@ -42716,18 +42716,19 @@
 	        status = (parseInt(rowValue.nkp) < 75) ? "rendah" : (parseInt(rowValue.nkp) < 90) ? "sedang" : "tinggi";
 	    },
 	    _populateHelper: function(){
-	        if(this.state.items.length > 1){
-	          help = KompetensiHelper(this.state.items);
-	          this.setState({helper: help});
-	          this.setState({summary: this._getSummaryData()});
-	        }
+	        console.warn('populating', this.state.items)
+	        help = KompetensiHelper(this.state.items);
+	        this.setState({helper: help});
+	        this.setState({summary: this._getSummaryData()});
+
+
 	    },
 	    _getSummaryData: function(){
 	        var items_with_kuadran = this.state.items.map(function(item, i){
-	            item.rangeKompetensi = (parseInt(item.ku) + parseInt(item.ki)) > parseFloat(this.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(this.state.helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = (item.ku + item.ki) > this.state.helper.alpha_high ? "tinggi" : (item.ku + item.ki) < this.state.helper.alpha_low ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 
-
+	                
 	                // Kuadran
 	                kuadran = 0;
 
@@ -42889,7 +42890,7 @@
 	                            React.createElement("th", null, "Kuadran")
 	                        )
 	                    ), 
-
+	                    
 	                    React.createElement("tbody", null, 
 	                        this.state.items.filter(function(item, index){return parseInt(item.active) == 1}).map(function(item, i){
 	                            return (
@@ -42909,8 +42910,8 @@
 	                                    active: item.active, 
 	                                    sectionID: item.section_id, 
 
-	                                    rangeKompetensi: (parseInt(item.ku) + parseInt(item.ki)) > parseFloat(component.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(component.state.helper.alpha_low) ? "rendah" : "sedang", 
-	                                    zScore: ((parseInt(item.ku)+parseInt(item.ki)) - parseFloat(component.state.helper.average_kompetensi)) / parseFloat(component.state.helper.std_kompetensi), 
+	                                    rangeKompetensi: (parseInt(item.ku) + parseInt(item.ki)) > component.state.helper.alpha_high ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < component.state.helper.alpha_low ? "rendah" : "sedang", 
+	                                    zScore: ((item.ku+item.ki) - component.state.helper.average_kompetensi) / component.state.helper.std_kompetensi, 
 	                                    rangeNKP: (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi", 
 
 	                                    onValueChange: component._rowValueChange, 
@@ -43010,7 +43011,6 @@
 	});
 
 	module.exports = TableTalent;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TableTalent.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -116686,8 +116686,6 @@
 	    _getKuadran: function(){
 	        kuadran = 0;
 
-	        // console.log(this.props.nama, this.props.rangeKompetensi, this.props.rangeNKP)
-
 	        if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "tinggi"){
 	            kuadran = 9
 	        } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "tinggi"){
@@ -116707,7 +116705,7 @@
 	        } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "rendah"){
 	            kuadran = 1
 	        }
-
+	  
 	    },
 
 	    _hapusTalent: function(){
@@ -116766,7 +116764,6 @@
 
 
 	module.exports = RowTalent;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RowTalent.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -116858,8 +116855,6 @@
 	         toggleButton = this.state.show ? 'Sembunyikan Helper' : 'Tampilkan Helper';
 	         show = this.state.show ? {} : {display: 'none'}
 	         bsStyle = this.state.show ? 'danger' : 'primary'
-
-	         console.warn(this.props.data)
 	        return (
 	            React.createElement("div", null, 
 	                React.createElement(Button, {bsStyle: bsStyle, onClick: this.toggleShow, bsSize: "small", style: {position: 'relative', right: '0px'}}, toggleButton), 
@@ -116867,14 +116862,14 @@
 		                React.createElement("thead", null, 
 	                        React.createElement("tr", null, 
 	                          React.createElement("th", null, "Helper Kompetensi"), 
-	                          React.createElement("th", null, "MAX : ", parseFloat(this.props.data.max_kompetensi), " "), 
-	                          React.createElement("th", null, "MIN : ", parseFloat(this.props.data.min_kompetensi), " "), 
-	                          React.createElement("th", null, "TOTAL : ", parseFloat(this.props.data.total_kompetensi), " "), 
-	                          React.createElement("th", null, "AVERAGE : ", parseFloat(this.props.data.average_kompetensi).toFixed(2), " "), 
-	                          React.createElement("th", null, "TALE AREA : ", parseFloat(this.props.data.tale_area_kompetensi) * 100 + '%', " "), 
-	                          React.createElement("th", null, "Std : ", parseFloat(this.props.data.std_kompetensi).toFixed(2), " "), 
-	                          React.createElement("th", null, "ALPHA (hi) : ", parseFloat(this.props.data.alpha_high).toFixed(2), " "), 
-	                          React.createElement("th", null, "ALPHA (lo) : ", parseFloat(this.props.data.alpha_low).toFixed(2))
+	                          React.createElement("th", null, "MAX : ", this.props.data.max_kompetensi, " "), 
+	                          React.createElement("th", null, "MIN : ", this.props.data.min_kompetensi, " "), 
+	                          React.createElement("th", null, "TOTAL : ", this.props.data.total_kompetensi, " "), 
+	                          React.createElement("th", null, "AVERAGE : ", this.props.data.average_kompetensi.toFixed(2), " "), 
+	                          React.createElement("th", null, "TALE AREA : ", this.props.data.tale_area_kompetensi * 100 + '%', " "), 
+	                          React.createElement("th", null, "Std : ", this.props.data.std_kompetensi.toFixed(2), " "), 
+	                          React.createElement("th", null, "ALPHA (hi) : ", this.props.data.alpha_high.toFixed(2), " "), 
+	                          React.createElement("th", null, "ALPHA (lo) : ", this.props.data.alpha_low.toFixed(2))
 	                        )
 		                )
 		            )
@@ -116886,7 +116881,6 @@
 
 
 	module.exports = HelperKompetensi;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "HelperKompetensi.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -120692,12 +120686,11 @@
 	    },
 	    _parseKuadran: function(score){
 	        var helper = Helper(score);
-	        console.log(helper, 'CHART HELPER')
 	        var scores_with_kuadran;
 	        var component = this;
 	        scores_with_kuadran = score.map(function(item){
 	            var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-	            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 	            item.kuadran = component._getKuadran(item);
 
@@ -120734,16 +120727,14 @@
 	    },
 	    render: function(){
 	        this._processData(this.props.data)
-	        console.log(chart_data, 'chart data')
-
 	        return React.createElement("div", null, 
+
 	                React.createElement(Bar, {data: chart_data, width: "600", redraw: true})
 	        )
 	    }
 	});
 
 	module.exports = TalentChart;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TalentChart.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -120758,9 +120749,9 @@
 
 	var KompetensiHelper = function(data){
 	    var helper = {};
-	    items_active = _.where(data, {active: 1});
+	    items_active = _.where(data, {active: "1"});
 	    var items = items_active.map(function(item,i){
-	        return (parseInt(item.ku)+parseInt(item.ki))
+	        return parseInt(item.ku)+parseInt(item.ki)
 	    });
 
 	    helper.max_kompetensi = _.max(items);
@@ -120773,12 +120764,10 @@
 	    helper.alpha_low = parseFloat(helper.average_kompetensi + (-helper.constant * helper.std_kompetensi));
 	    helper.tale_area_kompetensi = 0.15;
 
-	    console.log(helper, 'HELPER')
 	    return helper;
 	}
 
 	module.exports = KompetensiHelper;
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "kompetensi.helper.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -120794,11 +120783,10 @@
 	module.exports = function(){
 	    this.init = function(){
 	        this.mapKuadran(this.items);
-	        
 	    }
 
 	    this.getFromClass = function(data){
-	        data_active = _.where(data, {active: 1})
+	        data_active = _.where(data, {active: "1"})
 	        this.items = talentHelper.parseKuadran(data_active);
 	        this.init();
 	        return this;
@@ -120942,7 +120930,7 @@
 	        var component = this;
 	        scores_with_kuadran = score.map(function(item){
 	            var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-	            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
+	            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
 	            item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 	            item.kuadran = component.getKuadran(item);
 
@@ -120978,7 +120966,6 @@
 	        return kuadran;
 	    },
 	}
-
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "talent.helper.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -121238,7 +121225,7 @@
 	    loadData: function(){
 	        $.ajax({
 	            method: 'GET',
-	            url: 'http://apps-itjen.kemenkeu.go.id/talent/public/api/v1/talent-group/'+ this.props.params.talent_group_id +'/summary',
+	            url: 'http://localhost:3000/kantor/talent/public/api/v1/talent-group/'+ this.props.params.talent_group_id +'/summary',
 	            cache: false,
 	            success: function(data){
 	                this.setState({data: null});
@@ -121480,6 +121467,7 @@
 	});
 
 	module.exports = Component;
+
 
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/azamuddin/Development/kantor/talent/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Summary.react.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }

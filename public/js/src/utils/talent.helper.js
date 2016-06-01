@@ -8,7 +8,7 @@ module.exports = {
         var component = this;
         scores_with_kuadran = score.map(function(item){
             var total_kompetensi = parseInt(item.ku) + parseInt(item.ki);
-            item.rangeKompetensi = total_kompetensi > parseInt(helper.alpha_high) ? "tinggi" : parseInt(item.ku + item.ki) < parseInt(helper.alpha_low) ? "rendah" : "sedang";
+            item.rangeKompetensi = total_kompetensi > parseFloat(helper.alpha_high) ? "tinggi" : total_kompetensi < parseFloat(helper.alpha_low) ? "rendah" : "sedang";
             item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
             item.kuadran = component.getKuadran(item);
 

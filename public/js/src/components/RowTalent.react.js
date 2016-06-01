@@ -66,6 +66,8 @@ var RowTalent = React.createClass({
     _getKuadran: function(){
         kuadran = 0;
 
+        // console.log(this.props.nama, this.props.rangeKompetensi, this.props.rangeNKP)
+
         if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "tinggi"){
             kuadran = 9
         } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "tinggi"){
@@ -85,7 +87,7 @@ var RowTalent = React.createClass({
         } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "rendah"){
             kuadran = 1
         }
-  
+
     },
 
     _hapusTalent: function(){
@@ -126,7 +128,7 @@ var RowTalent = React.createClass({
                 <td>
                     <input type="number" className="form-control" disabled="disabled" value={parseInt(this.state.ku)+parseInt(this.state.ki)} onChange={this._onChange.bind(null, 'kom')}/>
                 </td>
-                {/*<td>zscore = {this.props.zScore}</td>*/} 
+                {/*<td>zscore = {this.props.zScore}</td>*/}
                 <td>{this.props.rangeKompetensi}</td>
                 <td>
                     <input type="number" className="form-control" value={this.state.nkp} onChange={this._onChange.bind(null, 'nkp')}/>

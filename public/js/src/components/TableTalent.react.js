@@ -60,8 +60,8 @@ var TableTalent = React.createClass({
             this.setState({items: []});
             this.setState({items: data}, this._populateHelper);
         }.bind(this));
-        
-  
+
+
     },
     componentDidMount: function(){
         this.loadData();
@@ -76,19 +76,18 @@ var TableTalent = React.createClass({
         status = (parseInt(rowValue.nkp) < 75) ? "rendah" : (parseInt(rowValue.nkp) < 90) ? "sedang" : "tinggi";
     },
     _populateHelper: function(){
-        console.warn('populating', this.state.items)
-        help = KompetensiHelper(this.state.items);
-        this.setState({helper: help});
-        this.setState({summary: this._getSummaryData()});
-
-
+        if(this.state.items.length > 1){
+          help = KompetensiHelper(this.state.items);
+          this.setState({helper: help});
+          this.setState({summary: this._getSummaryData()});
+        }
     },
     _getSummaryData: function(){
         var items_with_kuadran = this.state.items.map(function(item, i){
-            item.rangeKompetensi = (item.ku + item.ki) > this.state.helper.alpha_high ? "tinggi" : (item.ku + item.ki) < this.state.helper.alpha_low ? "rendah" : "sedang";
+            item.rangeKompetensi = (parseInt(item.ku) + parseInt(item.ki)) > parseFloat(this.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(this.state.helper.alpha_low) ? "rendah" : "sedang";
             item.rangeNKP = (parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi";
 
-                
+
                 // Kuadran
                 kuadran = 0;
 
@@ -250,7 +249,7 @@ var TableTalent = React.createClass({
                             <th>Kuadran</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         {this.state.items.filter(function(item, index){return parseInt(item.active) == 1}).map(function(item, i){
                             return (
@@ -270,8 +269,8 @@ var TableTalent = React.createClass({
                                     active={item.active}
                                     sectionID={item.section_id}
 
-                                    rangeKompetensi={(parseInt(item.ku) + parseInt(item.ki)) > component.state.helper.alpha_high ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < component.state.helper.alpha_low ? "rendah" : "sedang"}
-                                    zScore={((item.ku+item.ki) - component.state.helper.average_kompetensi) / component.state.helper.std_kompetensi}
+                                    rangeKompetensi={(parseInt(item.ku) + parseInt(item.ki)) > parseFloat(component.state.helper.alpha_high) ? "tinggi" : (parseInt(item.ku) + parseInt(item.ki)) < parseFloat(component.state.helper.alpha_low) ? "rendah" : "sedang"}
+                                    zScore={((parseInt(item.ku)+parseInt(item.ki)) - parseFloat(component.state.helper.average_kompetensi)) / parseFloat(component.state.helper.std_kompetensi)}
                                     rangeNKP = {(parseInt(item.nkp) < 75) ? "rendah" : (parseInt(item.nkp) < 90) ? "sedang" : "tinggi"}
 
                                     onValueChange={component._rowValueChange}
