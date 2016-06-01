@@ -123042,17 +123042,16 @@
 	        var item = score;
 	        // Kuadran
 	        kuadran = 0;
-
 	        if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "tinggi"){
 	            kuadran = 9
 	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "tinggi"){
 	            kuadran = 8
 	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "tinggi"){
-	            kuadran = 7
-	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
-	            kuadran = 6
-	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
 	            kuadran = 5
+	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
+	            kuadran = 7
+	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
+	            kuadran = 6
 	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "sedang"){
 	            kuadran = 4
 	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "rendah"){
