@@ -76,7 +76,6 @@
 		render: function(){
 			return (
 	        React.createElement("div", {className: "container-fluid"}, 
-					"hello again to windows", 
 	          this.props.children
 					)
 				)
@@ -43347,11 +43346,11 @@
 	                } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "tinggi"){
 	                    kuadran = 8
 	                } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "tinggi"){
-	                    kuadran = 7
-	                } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
-	                    kuadran = 6
-	                } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
 	                    kuadran = 5
+	                } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
+	                    kuadran = 7
+	                } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
+	                    kuadran = 6
 	                } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "sedang"){
 	                    kuadran = 4
 	                } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "rendah"){
@@ -118517,24 +118516,23 @@
 	        kuadran = 0;
 
 	        // console.log(this.props.nama, this.props.rangeKompetensi, this.props.rangeNKP)
-
-	        if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "tinggi"){
+	        if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "tinggi"){
 	            kuadran = 9
-	        } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "tinggi"){
+	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "tinggi"){
 	            kuadran = 8
-	        } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "tinggi"){
-	            kuadran = 7
-	        } else if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "sedang"){
-	            kuadran = 6
-	        } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "sedang"){
+	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "tinggi"){
 	            kuadran = 5
-	        } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "sedang"){
+	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
+	            kuadran = 7
+	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
+	            kuadran = 6
+	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "sedang"){
 	            kuadran = 4
-	        } else if(this.props.rangeKompetensi == "tinggi" && this.props.rangeNKP == "rendah"){
+	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "rendah"){
 	            kuadran = 3
-	        } else if(this.props.rangeKompetensi == "sedang" && this.props.rangeNKP == "rendah"){
+	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "rendah"){
 	            kuadran = 2
-	        } else if(this.props.rangeKompetensi == "rendah" && this.props.rangeNKP == "rendah"){
+	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "rendah"){
 	            kuadran = 1
 	        }
 
@@ -122805,11 +122803,11 @@
 	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "tinggi"){
 	            kuadran = 8
 	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "tinggi"){
-	            kuadran = 7
-	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
-	            kuadran = 6
-	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
 	            kuadran = 5
+	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "sedang"){
+	            kuadran = 7
+	        } else if(item.rangeKompetensi == "sedang" && item.rangeNKP == "sedang"){
+	            kuadran = 6
 	        } else if(item.rangeKompetensi == "rendah" && item.rangeNKP == "sedang"){
 	            kuadran = 4
 	        } else if(item.rangeKompetensi == "tinggi" && item.rangeNKP == "rendah"){
