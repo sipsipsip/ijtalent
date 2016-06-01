@@ -21,6 +21,7 @@ var App = React.createClass({
 	render: function(){
 		return (
         <div className="container-fluid">
+				hello again to windows
           {this.props.children}
 				</div>
 			)
@@ -28,7 +29,7 @@ var App = React.createClass({
 });
 
 var NotFound = React.createClass({
-  
+
   render: function(){
     return (
         <div>
