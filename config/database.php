@@ -63,10 +63,10 @@ return [
 			'prefix'    => '',
 			'strict'    => false,
 		],
-
+        
         'production' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', '10.242.35.35'),
+			'host'      => env('DB_HOST', 'localhost'),
 			'database'  => env('DB_DATABASE', 'ij_talents'),
 			'username'  => env('DB_USERNAME', 'root'),
 			'password'  => env('DB_PASSWORD', '41518699'),
